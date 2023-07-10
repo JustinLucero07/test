@@ -13,6 +13,7 @@ public class Practica6LuceroJustinTacuriJhonatan {
     public static void main(String[] args) {
         System.out.println("Hello World! ha ha he he");
 
-System.out.println("Hello World! ha ha he he hi hi");        
+System.out.println("Hello World! ha ha he he hi hi");
+System.out.println("Hello World! ha ha he he hi hi");
     }
 }
