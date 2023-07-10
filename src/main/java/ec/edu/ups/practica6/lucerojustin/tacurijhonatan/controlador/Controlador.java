@@ -13,7 +13,6 @@ import ec.edu.ups.practica6.lucerojustin.tacurijhonatan.modelo.Directorio;
  */
 public class Controlador {
     private Directorio directorio;
-    //vales vrg
-    //////////gfjdjgjfdgjfkjdg
+    
 }
 
