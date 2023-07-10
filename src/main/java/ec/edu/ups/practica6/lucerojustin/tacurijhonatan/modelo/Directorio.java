@@ -86,7 +86,6 @@ public class Directorio {
         if (archivo.exists() && archivo.isFile()) {
             return archivo.delete();
         }
-        
         return false;
     }
     
@@ -105,7 +104,6 @@ public class Directorio {
                 }
             }
         }
-        
         return listaArchivos;
     }
     
