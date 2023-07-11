@@ -4,6 +4,8 @@
 
 package ec.edu.ups.practica6.lucerojustin.tacurijhonatan;
 
+import ec.edu.ups.practica6.lucerojustin.tacurijhonatan.controlador.Controlador;
+
 /**
  *
  * @author Usuario
@@ -11,9 +13,7 @@ package ec.edu.ups.practica6.lucerojustin.tacurijhonatan;
 public class Practica6LuceroJustinTacuriJhonatan {
 
     public static void main(String[] args) {
-        System.out.println("Hello World! ha ha he he");
-
-System.out.println("Hello World! ha ha he he hi hi");
-System.out.println("Hello World! ha ha he he hi hi");
+        Controlador a = new Controlador();  
+        a.renombrarDirectorio("xd122333","a");
     }
 }

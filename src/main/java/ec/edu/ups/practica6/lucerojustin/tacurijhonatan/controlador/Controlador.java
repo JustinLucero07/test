@@ -60,7 +60,7 @@ public class Controlador {
     
     public boolean eliminarDirectorio(String rutaDirectorio) {
         File directorio = new File(rutaDirectorio);
-
+        System.out.println(rutaDirectorio);
         if (directorio.exists() && directorio.isDirectory()) {
             File[] archivos = directorio.listFiles();
             if (archivos != null) {
@@ -81,26 +81,16 @@ public class Controlador {
 
     public boolean eliminarArchivo(String rutaArchivo) {
         File archivo = new File(rutaArchivo);
-
+        System.out.println("eliminarar"+rutaArchivo);
         if (archivo.exists() && archivo.isFile()) {
-            return archivo.delete();
+            archivo.delete();
+            return true;
         }
 
         return false;
     }
 
-    /*private void eliminarContenidoDirectorio(File directorio) {
-        File[] archivos = directorio.listFiles();
-
-        if (archivos != null) {
-            for (File archivo : archivos) {
-                if (archivo.isDirectory()) {
-                    eliminarContenidoDirectorio(archivo);
-                }
-                archivo.delete();
-            }
-        }
-    }*/
+    
     
     
    public void listarDirectorios(File directorio, DefaultMutableTreeNode nodoPadre) {
@@ -181,10 +171,11 @@ public class Controlador {
     
      public boolean renombrarArchivo(String nombreAnterior, String nuevoNombre) {
         File archivoAnterior = new File(nombreAnterior);
-        File archivoNuevo = new File(archivoAnterior.getParent(), nuevoNombre);
+        File archivoNuevo = new File(archivoAnterior.getParentFile(), nuevoNombre);
 
         if (archivoAnterior.exists() && !archivoNuevo.exists()) {
-            return archivoAnterior.renameTo(archivoNuevo);
+            archivoAnterior.renameTo(archivoNuevo);
+            return true;
         }
 
         return false;

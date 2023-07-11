@@ -300,7 +300,7 @@ public class VistaPirncipal extends javax.swing.JFrame {
 
         DefaultMutableTreeNode nodoSeleccionado = (DefaultMutableTreeNode) jTree.getSelectionPath().getLastPathComponent();
         String rutaCompleta = obtenerRutaCompletaDesdeNodo(nodoSeleccionado);
-        
+        System.out.println("AAAAA");
         if (nodoSeleccionado.getAllowsChildren()) {
             int confirmacion = JOptionPane.showConfirmDialog(this,"¿Estás seguro de eliminar el directorio y su contenido?","Confirmar Eliminación",JOptionPane.YES_NO_OPTION);
 
@@ -315,12 +315,12 @@ public class VistaPirncipal extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "No se pudo eliminar el directorio: " + rutaCompleta);
                 }
             }
-        } else {
+        } else  {
             int confirmacion = JOptionPane.showConfirmDialog(this,"¿Estás seguro de eliminar el archivo?","Confirmar Eliminación",JOptionPane.YES_NO_OPTION);
-
+            
             if (confirmacion == JOptionPane.YES_OPTION) {
                 boolean exito = controlador.eliminarArchivo(rutaCompleta);
-
+                
                 if (exito) {
                     JOptionPane.showMessageDialog(this, "Archivo eliminado: " + rutaCompleta);
                     DefaultMutableTreeNode nodoPadre = (DefaultMutableTreeNode) nodoSeleccionado.getParent();
@@ -469,7 +469,6 @@ public class VistaPirncipal extends javax.swing.JFrame {
         StringBuilder rutaCompleta = new StringBuilder();
         while (nodo != null) {
             Object objeto = nodo.getUserObject();
-
             if (objeto instanceof String) {
                 String nombre = (String) objeto;
                 rutaCompleta.insert(0, nombre);
@@ -478,7 +477,7 @@ public class VistaPirncipal extends javax.swing.JFrame {
 
             nodo = (DefaultMutableTreeNode) nodo.getParent();
         }
-
+        System.out.println(rutaCompleta.toString());
         return rutaCompleta.toString();
     }
 
