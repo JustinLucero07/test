@@ -4,11 +4,9 @@
  */
 package ec.edu.ups.practica6.lucerojustin.tacurijhonatan.controlador;
 
-import ec.edu.ups.practica6.lucerojustin.tacurijhonatan.modelo.Directorio;
+
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 
@@ -18,6 +16,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @author Usuario
  */
 public class Controlador {
+    
     public void crearDirectorio(String ruta, String nombreDirectorio) {
         String rutaCompleta = ruta + "/" + nombreDirectorio;
 
@@ -57,42 +56,7 @@ public class Controlador {
             }
         }
     }
-    
-    public boolean eliminarDirectorio(String rutaDirectorio) {
-        File directorio = new File(rutaDirectorio);
-        System.out.println(rutaDirectorio);
-        if (directorio.exists() && directorio.isDirectory()) {
-            File[] archivos = directorio.listFiles();
-            if (archivos != null) {
-                for (File archivo : archivos) {
-                    if (archivo.isDirectory()) {
-                        eliminarDirectorio(archivo.getAbsolutePath());
-                    } else {
-                        archivo.delete();
-                    }
-                }
-            }
 
-            return directorio.delete();
-        }
-
-        return false;
-    }
-
-    public boolean eliminarArchivo(String rutaArchivo) {
-        File archivo = new File(rutaArchivo);
-        System.out.println("eliminarar"+rutaArchivo);
-        if (archivo.exists() && archivo.isFile()) {
-            archivo.delete();
-            return true;
-        }
-
-        return false;
-    }
-
-    
-    
-    
    public void listarDirectorios(File directorio, DefaultMutableTreeNode nodoPadre) {
         if (directorio.isDirectory()) {
             File[] archivos = directorio.listFiles();
@@ -169,7 +133,7 @@ public class Controlador {
         }
     }
     
-     public boolean renombrarArchivo(String nombreAnterior, String nuevoNombre) {
+    /*public boolean renombrarArchivo(String nombreAnterior, String nuevoNombre) {
         File archivoAnterior = new File(nombreAnterior);
         File archivoNuevo = new File(archivoAnterior.getParentFile(), nuevoNombre);
 
@@ -190,6 +154,49 @@ public class Controlador {
         }
 
         return false;
+    }*/
+    
+    public void eliminarArchivoODirectorio(String rutaArchivoODirectorio) {
+        File archivoODirectorio = new File(rutaArchivoODirectorio);
+
+        if (archivoODirectorio.exists()) {
+            if (archivoODirectorio.isDirectory()) {
+                eliminarDirectorio(archivoODirectorio);
+            } else {
+                if (archivoODirectorio.delete()) {
+                    System.out.println("Archivo eliminado: " + rutaArchivoODirectorio);
+                } else {
+                    System.out.println("No se pudo eliminar el archivo: " + rutaArchivoODirectorio);
+                }
+            }
+        } else {
+            System.out.println("El archivo o directorio no existe: " + rutaArchivoODirectorio);
+        }
     }
+    
+    private void eliminarDirectorio(File directorio) {
+        File[] archivos = directorio.listFiles();
+
+        if (archivos != null) {
+            for (File archivo : archivos) {
+                if (archivo.isDirectory()) {
+                    eliminarDirectorio(archivo);
+                } else {
+                    archivo.delete();
+                }
+            }
+        }
+
+        directorio.delete();
+        System.out.println("Directorio eliminado: " + directorio.getAbsolutePath());
+    }
+    
+    public void renombrarArchivoODirectorio(String ruta, String nuevoNombre) {
+        File archivoODirectorio = new File(ruta);
+        String nuevaRuta = archivoODirectorio.getParent() + File.separator + nuevoNombre;
+        File archivoODirectorioNuevo = new File(nuevaRuta);
+        archivoODirectorio.renameTo(archivoODirectorioNuevo);
+    }
+
 }
 

@@ -5,13 +5,9 @@
 package ec.edu.ups.practica6.lucerojustin.tacurijhonatan;
 
 import ec.edu.ups.practica6.lucerojustin.tacurijhonatan.controlador.Controlador;
-import ec.edu.ups.practica6.lucerojustin.tacurijhonatan.modelo.Directorio;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import javax.swing.JTree;
-import javax.swing.KeyStroke;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -300,37 +296,27 @@ public class VistaPirncipal extends javax.swing.JFrame {
 
         DefaultMutableTreeNode nodoSeleccionado = (DefaultMutableTreeNode) jTree.getSelectionPath().getLastPathComponent();
         String rutaCompleta = obtenerRutaCompletaDesdeNodo(nodoSeleccionado);
-        System.out.println("AAAAA");
+
         if (nodoSeleccionado.getAllowsChildren()) {
             int confirmacion = JOptionPane.showConfirmDialog(this,"¿Estás seguro de eliminar el directorio y su contenido?","Confirmar Eliminación",JOptionPane.YES_NO_OPTION);
 
             if (confirmacion == JOptionPane.YES_OPTION) {
-                boolean exito = controlador.eliminarDirectorio(rutaCompleta);
-
-                if (exito) {
-                    JOptionPane.showMessageDialog(this, "Directorio eliminado: " + rutaCompleta);
-                    DefaultMutableTreeNode nodoPadre = (DefaultMutableTreeNode) nodoSeleccionado.getParent();
-                    actualizarJTree(nodoPadre);
-                } else {
-                    JOptionPane.showMessageDialog(this, "No se pudo eliminar el directorio: " + rutaCompleta);
-                }
+                controlador.eliminarArchivoODirectorio(rutaCompleta);
+                DefaultMutableTreeNode nodoPadre = (DefaultMutableTreeNode) nodoSeleccionado.getParent();
+                actualizarJTree(nodoPadre);
+                JOptionPane.showMessageDialog(this, "Directorio eliminado: " + rutaCompleta);
             }
-        } else  {
+        } else {
             int confirmacion = JOptionPane.showConfirmDialog(this,"¿Estás seguro de eliminar el archivo?","Confirmar Eliminación",JOptionPane.YES_NO_OPTION);
-            
+    
             if (confirmacion == JOptionPane.YES_OPTION) {
-                boolean exito = controlador.eliminarArchivo(rutaCompleta);
-                
-                if (exito) {
-                    JOptionPane.showMessageDialog(this, "Archivo eliminado: " + rutaCompleta);
-                    DefaultMutableTreeNode nodoPadre = (DefaultMutableTreeNode) nodoSeleccionado.getParent();
-                    actualizarJTree(nodoPadre);
-                } else {
-                    JOptionPane.showMessageDialog(this, "No se pudo eliminar el archivo: " + rutaCompleta);
-                }
+                controlador.eliminarArchivoODirectorio(rutaCompleta);
+                DefaultMutableTreeNode nodoPadre = (DefaultMutableTreeNode) nodoSeleccionado.getParent();
+                actualizarJTree(nodoPadre);
+                JOptionPane.showMessageDialog(this, "Archivo eliminado: " + rutaCompleta);
             }
         }
-       
+
     }//GEN-LAST:event_menuItemEliminarActionPerformed
 
     private void btnListarArchivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarArchivosActionPerformed
@@ -379,30 +365,21 @@ public class VistaPirncipal extends javax.swing.JFrame {
         if (nodoSeleccionado != null) {
             String nombreAnterior = nodoSeleccionado.toString();
 
-            int confirmacion = JOptionPane.showConfirmDialog( null, "¿Estás seguro de renombrar '" + nombreAnterior + "'?","Confirmar Renombrar",JOptionPane.YES_NO_OPTION);
+            int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de renombrar '" + nombreAnterior + "'?", "Confirmar Renombrar", JOptionPane.YES_NO_OPTION);
 
             if (confirmacion == JOptionPane.YES_OPTION) {
-                String nuevoNombre = JOptionPane.showInputDialog(null,"Ingrese el nuevo nombre para '" + nombreAnterior + "':","Renombrar",JOptionPane.PLAIN_MESSAGE);
+                String nuevoNombre = JOptionPane.showInputDialog(null, "Ingrese el nuevo nombre para '" + nombreAnterior + "':", "Renombrar", JOptionPane.PLAIN_MESSAGE);
 
                 if (nuevoNombre != null && !nuevoNombre.isEmpty()) {
-                    boolean exito = false;
-                    if (nodoSeleccionado.getAllowsChildren()) {
-                        exito = controlador.renombrarDirectorio(nombreAnterior, nuevoNombre);
-                    } else {
-                        exito = controlador.renombrarArchivo(nombreAnterior, nuevoNombre);
-                    }
+                    controlador.renombrarArchivoODirectorio(nombreAnterior, nuevoNombre);
 
-                    if (exito) {
-                        nodoSeleccionado.setUserObject(nuevoNombre);
-                        modelo = (DefaultTreeModel) jTree.getModel();
-                        modelo.nodeChanged(nodoSeleccionado);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "No se pudo renombrar '" + nombreAnterior + "'.");
-                    }
+                    nodoSeleccionado.setUserObject(nuevoNombre);
+                    modelo = (DefaultTreeModel) jTree.getModel();
+                    modelo.nodeChanged(nodoSeleccionado);
                 } else {
                     JOptionPane.showMessageDialog(null, "No se ingresó un nombre válido.");
                 }
-            }
+            }   
         }
     }//GEN-LAST:event_menuItemRenombrarActionPerformed
 
