@@ -2,19 +2,43 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package ec.edu.ups.practica6.lucerojustin.tacurijhonatan.vista;
+package ec.edu.ups.practica6.lucerojustin.tacurijhonatan;
+
+import ec.edu.ups.practica6.lucerojustin.tacurijhonatan.controlador.Controlador;
+import ec.edu.ups.practica6.lucerojustin.tacurijhonatan.modelo.Directorio;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.JTree;
+import javax.swing.KeyStroke;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
  * @author Usuario
  */
 public class VistaPirncipal extends javax.swing.JFrame {
+    private Controlador controlador;
+    private DefaultMutableTreeNode root;
+    private DefaultTreeModel modelo;
 
     /**
      * Creates new form VistaPirncipal
      */
     public VistaPirncipal() {
         initComponents();
+        this.controlador = new Controlador();
+        /*menuItemCrear.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
+        menuItemCrear.addActionListener(this::menuItemCrearActionPerformed);
+        menuGestionar.add(menuItemCrear);
+        menuItemEliminar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, KeyEvent.CTRL_DOWN_MASK));
+        menuItemEliminar.addActionListener(this::menuItemCrearActionPerformed);
+        menuGestionar.add(menuItemEliminar);
+        menuItemRenombrar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
+        menuItemRenombrar.addActionListener(this::menuItemCrearActionPerformed);
+        menuGestionar.add(menuItemRenombrar);*/
     }
 
     /**
@@ -26,6 +50,7 @@ public class VistaPirncipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        fileseleccionarCarpeta = new javax.swing.JFileChooser();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTree = new javax.swing.JTree();
@@ -34,17 +59,20 @@ public class VistaPirncipal extends javax.swing.JFrame {
         txtRuta = new javax.swing.JTextField();
         btnMostrarInformacion = new javax.swing.JButton();
         btnListarDirectorios = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnListarArchivos = new javax.swing.JButton();
+        btnListarDirectoriosOcultos = new javax.swing.JButton();
+        btnListarArchivosOcultos = new javax.swing.JButton();
+        btnListarTodo = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuGestionar = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        menuItemCrear = new javax.swing.JMenuItem();
+        menuItemEliminar = new javax.swing.JMenuItem();
+        menuItemRenombrar = new javax.swing.JMenuItem();
+        menuItemSalir = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+
+        fileseleccionarCarpeta.setFileSelectionMode(javax.swing.JFileChooser.FILES_AND_DIRECTORIES);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,9 +80,15 @@ public class VistaPirncipal extends javax.swing.JFrame {
 
         jAreaInformacion.setColumns(20);
         jAreaInformacion.setRows(5);
+        jAreaInformacion.setText("Informacion:\n\nPath absoluto\nTamaño del archivo\nPermisos de lectura\nPermisos de escritura\nFecha de última modificaión");
         jScrollPane2.setViewportView(jAreaInformacion);
 
         btnMostrarInformacion.setText("Mostrar Informacion");
+        btnMostrarInformacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarInformacionActionPerformed(evt);
+            }
+        });
 
         btnListarDirectorios.setText("Listar Directorios");
         btnListarDirectorios.addActionListener(new java.awt.event.ActionListener() {
@@ -63,13 +97,40 @@ public class VistaPirncipal extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Listar Archivos");
+        btnListarArchivos.setText("Listar Archivos");
+        btnListarArchivos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarArchivosActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Listar Directorios Ocultos");
+        btnListarDirectoriosOcultos.setText("Listar Directorios Ocultos");
+        btnListarDirectoriosOcultos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarDirectoriosOcultosActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Listar Archivos Ocultos");
+        btnListarArchivosOcultos.setText("Listar Archivos Ocultos");
+        btnListarArchivosOcultos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarArchivosOcultosActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Listar Todo");
+        btnListarTodo.setText("Listar Todo");
+        btnListarTodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarTodoActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("Seleecionar Ruta");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -78,64 +139,88 @@ public class VistaPirncipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(279, 279, 279))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton5)
+                .addGap(192, 192, 192))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(btnListarDirectorios)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnListarArchivos)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnListarDirectoriosOcultos)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnListarArchivosOcultos)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnListarTodo))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(77, 77, 77)
+                        .addGap(49, 49, 49)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(142, 142, 142)
-                        .addComponent(btnMostrarInformacion))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(btnListarDirectorios)
-                        .addGap(27, 27, 27)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton4)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(311, 311, 311)
+                        .addComponent(btnMostrarInformacion)))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnListarDirectorios)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(btnListarArchivos)
+                    .addComponent(btnListarDirectoriosOcultos)
+                    .addComponent(btnListarArchivosOcultos)
+                    .addComponent(btnListarTodo))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
                 .addComponent(btnMostrarInformacion)
-                .addGap(25, 25, 25))
+                .addGap(682, 682, 682))
         );
 
         menuGestionar.setText("Gestionar Directorios");
 
-        jMenuItem1.setText("Crear");
-        menuGestionar.add(jMenuItem1);
+        menuItemCrear.setText("Crear");
+        menuItemCrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemCrearActionPerformed(evt);
+            }
+        });
+        menuGestionar.add(menuItemCrear);
 
-        jMenuItem2.setText("Eliminar");
-        menuGestionar.add(jMenuItem2);
+        menuItemEliminar.setText("Eliminar");
+        menuItemEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemEliminarActionPerformed(evt);
+            }
+        });
+        menuGestionar.add(menuItemEliminar);
 
-        jMenuItem3.setText("Renombrar");
-        menuGestionar.add(jMenuItem3);
+        menuItemRenombrar.setText("Renombrar");
+        menuItemRenombrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemRenombrarActionPerformed(evt);
+            }
+        });
+        menuGestionar.add(menuItemRenombrar);
 
-        jMenuItem4.setText("Salir");
-        menuGestionar.add(jMenuItem4);
+        menuItemSalir.setText("Salir");
+        menuItemSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemSalirActionPerformed(evt);
+            }
+        });
+        menuGestionar.add(menuItemSalir);
 
         jMenuBar1.add(menuGestionar);
 
@@ -152,16 +237,265 @@ public class VistaPirncipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 662, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListarDirectoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarDirectoriosActionPerformed
-        // TODO add your handling code here:
+    
+        String ruta = txtRuta.getText();
+
+        DefaultMutableTreeNode nodoRaiz = new DefaultMutableTreeNode(ruta);
+        controlador.listarDirectorios(new File(ruta), nodoRaiz);
+
+        DefaultTreeModel modelo = new DefaultTreeModel(nodoRaiz);
+        jTree.setModel(modelo);
     }//GEN-LAST:event_btnListarDirectoriosActionPerformed
 
+    private void menuItemCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCrearActionPerformed
+        String ruta = txtRuta.getText();
+        if (ruta.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No se añadió una ruta");
+        } else {
+            Object[] opciones = {"Directorio", "Archivo"};
+            int seleccion = JOptionPane.showOptionDialog(this,"¿Qué desea crear en la ruta especificada?","Crear",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,opciones,opciones[0]);
+            if (seleccion == JOptionPane.YES_OPTION) {
+                String nombreDirectorio = JOptionPane.showInputDialog(this,"Ingrese el nombre del directorio a crear:","Crear Directorio",JOptionPane.PLAIN_MESSAGE);
+
+                if (nombreDirectorio != null && !nombreDirectorio.isEmpty()) {
+                    controlador.crearDirectorio(ruta, nombreDirectorio);
+                    JOptionPane.showMessageDialog(this, "Directorio creado: " + nombreDirectorio);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se ingresó un nombre de directorio válido.");
+                }
+            } else if (seleccion == JOptionPane.NO_OPTION) {
+                String nombreArchivo = JOptionPane.showInputDialog(this,"Ingrese el nombre del archivo a crear:","Crear Archivo",JOptionPane.PLAIN_MESSAGE);
+
+                if (nombreArchivo != null && !nombreArchivo.isEmpty()) {
+                    controlador.crearArchivo(ruta, nombreArchivo);
+                    JOptionPane.showMessageDialog(this, "Archivo creado: " + nombreArchivo);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se ingresó un nombre de archivo válido.");
+                }
+            }
+        }
+    }//GEN-LAST:event_menuItemCrearActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        int seleccion = 0;
+        fileseleccionarCarpeta.showOpenDialog(null);
+        if(seleccion == fileseleccionarCarpeta.APPROVE_OPTION){
+            File fichero = fileseleccionarCarpeta.getSelectedFile();
+            actualizar(fichero);
+        }else{
+            txtRuta.setText("No has seleccionado ninguna ruta");
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void menuItemEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEliminarActionPerformed
+
+        DefaultMutableTreeNode nodoSeleccionado = (DefaultMutableTreeNode) jTree.getSelectionPath().getLastPathComponent();
+        String rutaCompleta = obtenerRutaCompletaDesdeNodo(nodoSeleccionado);
+        
+        if (nodoSeleccionado.getAllowsChildren()) {
+            int confirmacion = JOptionPane.showConfirmDialog(this,"¿Estás seguro de eliminar el directorio y su contenido?","Confirmar Eliminación",JOptionPane.YES_NO_OPTION);
+
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                boolean exito = controlador.eliminarDirectorio(rutaCompleta);
+
+                if (exito) {
+                    JOptionPane.showMessageDialog(this, "Directorio eliminado: " + rutaCompleta);
+                    DefaultMutableTreeNode nodoPadre = (DefaultMutableTreeNode) nodoSeleccionado.getParent();
+                    actualizarJTree(nodoPadre);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo eliminar el directorio: " + rutaCompleta);
+                }
+            }
+        } else {
+            int confirmacion = JOptionPane.showConfirmDialog(this,"¿Estás seguro de eliminar el archivo?","Confirmar Eliminación",JOptionPane.YES_NO_OPTION);
+
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                boolean exito = controlador.eliminarArchivo(rutaCompleta);
+
+                if (exito) {
+                    JOptionPane.showMessageDialog(this, "Archivo eliminado: " + rutaCompleta);
+                    DefaultMutableTreeNode nodoPadre = (DefaultMutableTreeNode) nodoSeleccionado.getParent();
+                    actualizarJTree(nodoPadre);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo eliminar el archivo: " + rutaCompleta);
+                }
+            }
+        }
+       
+    }//GEN-LAST:event_menuItemEliminarActionPerformed
+
+    private void btnListarArchivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarArchivosActionPerformed
+        String ruta = txtRuta.getText();
+
+        DefaultMutableTreeNode nodoRaiz = new DefaultMutableTreeNode(ruta);
+        controlador.listarArchivos(new File(ruta), nodoRaiz);
+
+        DefaultTreeModel modelo = new DefaultTreeModel(nodoRaiz);
+        jTree.setModel(modelo);
+    }//GEN-LAST:event_btnListarArchivosActionPerformed
+
+    private void btnListarDirectoriosOcultosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarDirectoriosOcultosActionPerformed
+        String ruta = txtRuta.getText();
+
+        DefaultMutableTreeNode nodoRaiz = new DefaultMutableTreeNode(ruta);
+        controlador.listarDirectoriosOcultos(new File(ruta), nodoRaiz);
+
+        DefaultTreeModel modelo = new DefaultTreeModel(nodoRaiz);
+        jTree.setModel(modelo);
+    }//GEN-LAST:event_btnListarDirectoriosOcultosActionPerformed
+
+    private void btnListarArchivosOcultosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarArchivosOcultosActionPerformed
+        String ruta = txtRuta.getText();
+
+        DefaultMutableTreeNode nodoRaiz = new DefaultMutableTreeNode(ruta);
+        controlador.listarArchivosOcultos(new File(ruta), nodoRaiz);
+
+        DefaultTreeModel modelo = new DefaultTreeModel(nodoRaiz);
+        jTree.setModel(modelo);
+    }//GEN-LAST:event_btnListarArchivosOcultosActionPerformed
+
+    private void btnListarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarTodoActionPerformed
+        String ruta = txtRuta.getText();
+
+        DefaultMutableTreeNode nodoRaiz = new DefaultMutableTreeNode(ruta);
+        controlador.listarTodo(new File(ruta), nodoRaiz);
+
+        DefaultTreeModel modelo = new DefaultTreeModel(nodoRaiz);
+        jTree.setModel(modelo);
+    }//GEN-LAST:event_btnListarTodoActionPerformed
+
+    private void menuItemRenombrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRenombrarActionPerformed
+
+        DefaultMutableTreeNode nodoSeleccionado = (DefaultMutableTreeNode) jTree.getSelectionPath().getLastPathComponent();
+        if (nodoSeleccionado != null) {
+            String nombreAnterior = nodoSeleccionado.toString();
+
+            int confirmacion = JOptionPane.showConfirmDialog( null, "¿Estás seguro de renombrar '" + nombreAnterior + "'?","Confirmar Renombrar",JOptionPane.YES_NO_OPTION);
+
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                String nuevoNombre = JOptionPane.showInputDialog(null,"Ingrese el nuevo nombre para '" + nombreAnterior + "':","Renombrar",JOptionPane.PLAIN_MESSAGE);
+
+                if (nuevoNombre != null && !nuevoNombre.isEmpty()) {
+                    boolean exito = false;
+                    if (nodoSeleccionado.getAllowsChildren()) {
+                        exito = controlador.renombrarDirectorio(nombreAnterior, nuevoNombre);
+                    } else {
+                        exito = controlador.renombrarArchivo(nombreAnterior, nuevoNombre);
+                    }
+
+                    if (exito) {
+                        nodoSeleccionado.setUserObject(nuevoNombre);
+                        modelo = (DefaultTreeModel) jTree.getModel();
+                        modelo.nodeChanged(nodoSeleccionado);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se pudo renombrar '" + nombreAnterior + "'.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se ingresó un nombre válido.");
+                }
+            }
+        }
+    }//GEN-LAST:event_menuItemRenombrarActionPerformed
+
+    private void btnMostrarInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarInformacionActionPerformed
+        DefaultMutableTreeNode nodoSeleccionado = (DefaultMutableTreeNode) jTree.getSelectionPath().getLastPathComponent();
+        
+        if (nodoSeleccionado != null) {
+            String ruta = obtenerRutaCompletaDesdeNodo(nodoSeleccionado);
+            File archivo = new File(ruta);
+
+            if (archivo.exists()) {
+                StringBuilder informacion = new StringBuilder();
+
+                informacion.append("Información:\n");
+                informacion.append("Path absoluto: ").append(archivo.getAbsolutePath()).append("\n");
+                informacion.append("Tamaño del archivo: ").append(convertirTamaño(archivo.length())).append("\n");
+                informacion.append("Permisos de lectura: ").append(archivo.canRead()).append("\n");
+                informacion.append("Permisos de escritura: ").append(archivo.canWrite()).append("\n");
+                informacion.append("Fecha de última modificación: ").append(new Date(archivo.lastModified())).append("\n");
+                jAreaInformacion.setText(informacion.toString());
+            } else {
+                jAreaInformacion.setText("El archivo o directorio no existe.");
+            }
+        }
+    }//GEN-LAST:event_btnMostrarInformacionActionPerformed
+
+    private void menuItemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSalirActionPerformed
+        
+    }//GEN-LAST:event_menuItemSalirActionPerformed
+
+    private void actualizar(File fichero){
+        txtRuta.setText(fichero.getAbsolutePath());
+        root =new DefaultMutableTreeNode(fichero.getName());
+        modelo = new DefaultTreeModel(root);
+        
+        crea(root,fichero);
+        
+        jTree.setModel(modelo); 
+    }
+    
+    private void crea(DefaultMutableTreeNode nodo, File carpeta){
+        File[] archivos = carpeta.listFiles();
+        if(archivos!=null){
+            int contador = 0;
+            for (File archivo : archivos) {
+                DefaultMutableTreeNode hijo = new DefaultMutableTreeNode(archivo.getName());
+                modelo.insertNodeInto(hijo, nodo, contador);
+                contador++;
+                if(archivo.isDirectory()){
+                    crea(hijo,archivo);
+                }
+            }
+        }else{
+            //
+        }
+    }
+    
+    private void actualizarJTree(DefaultMutableTreeNode nodoPadre) {
+        DefaultTreeModel modelo = (DefaultTreeModel) jTree.getModel();
+        modelo.reload(nodoPadre);
+    }
+    
+    private String obtenerRutaCompletaDesdeNodo(DefaultMutableTreeNode nodo) {
+        StringBuilder rutaCompleta = new StringBuilder();
+        while (nodo != null) {
+            Object objeto = nodo.getUserObject();
+
+            if (objeto instanceof String) {
+                String nombre = (String) objeto;
+                rutaCompleta.insert(0, nombre);
+                rutaCompleta.insert(0, "/");
+            }
+
+            nodo = (DefaultMutableTreeNode) nodo.getParent();
+        }
+
+        return rutaCompleta.toString();
+    }
+
+    private String convertirTamaño(long tamañoBytes) {
+        final int KILOBYTE = 1024;
+        final String[] UNIDADES = {"bytes", "KB", "MB", "GB", "TB"};
+
+        if (tamañoBytes <= 0) {
+            return "0 bytes";
+        }
+
+        int exponente = (int) (Math.log(tamañoBytes) / Math.log(KILOBYTE));
+        double tamañoConvertido = tamañoBytes / Math.pow(KILOBYTE, exponente);
+
+        return String.format("%.2f %s", tamañoConvertido, UNIDADES[exponente]);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -198,24 +532,26 @@ public class VistaPirncipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnListarArchivos;
+    private javax.swing.JButton btnListarArchivosOcultos;
     private javax.swing.JButton btnListarDirectorios;
+    private javax.swing.JButton btnListarDirectoriosOcultos;
+    private javax.swing.JButton btnListarTodo;
     private javax.swing.JButton btnMostrarInformacion;
+    private javax.swing.JFileChooser fileseleccionarCarpeta;
     private javax.swing.JTextArea jAreaInformacion;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTree jTree;
     private javax.swing.JMenu menuGestionar;
+    private javax.swing.JMenuItem menuItemCrear;
+    private javax.swing.JMenuItem menuItemEliminar;
+    private javax.swing.JMenuItem menuItemRenombrar;
+    private javax.swing.JMenuItem menuItemSalir;
     private javax.swing.JTextField txtRuta;
     // End of variables declaration//GEN-END:variables
 }
