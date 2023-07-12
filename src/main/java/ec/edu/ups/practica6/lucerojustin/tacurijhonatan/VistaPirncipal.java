@@ -5,9 +5,11 @@
 package ec.edu.ups.practica6.lucerojustin.tacurijhonatan;
 
 import ec.edu.ups.practica6.lucerojustin.tacurijhonatan.controlador.Controlador;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -19,6 +21,10 @@ public class VistaPirncipal extends javax.swing.JFrame {
     private Controlador controlador;
     private DefaultMutableTreeNode root;
     private DefaultTreeModel modelo;
+    private boolean activoCrear = true;
+    private boolean activoEliminar = true;
+    private boolean activoRenombrar = true;
+    private boolean activoSalir = true;
 
     /**
      * Creates new form VistaPirncipal
@@ -26,15 +32,36 @@ public class VistaPirncipal extends javax.swing.JFrame {
     public VistaPirncipal() {
         initComponents();
         this.controlador = new Controlador();
-        /*menuItemCrear.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
-        menuItemCrear.addActionListener(this::menuItemCrearActionPerformed);
-        menuGestionar.add(menuItemCrear);
-        menuItemEliminar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, KeyEvent.CTRL_DOWN_MASK));
-        menuItemEliminar.addActionListener(this::menuItemCrearActionPerformed);
-        menuGestionar.add(menuItemEliminar);
-        menuItemRenombrar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
-        menuItemRenombrar.addActionListener(this::menuItemCrearActionPerformed);
-        menuGestionar.add(menuItemRenombrar);*/
+        if (activoCrear) {
+            menuItemCrear.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
+            menuItemCrear.addActionListener(this::menuItemCrearActionPerformed);
+            menuGestionar.add(menuItemCrear);
+        } else {
+            // 
+        }
+        if (activoEliminar) {
+            menuItemEliminar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, KeyEvent.CTRL_DOWN_MASK));
+            menuItemEliminar.addActionListener(this::menuItemEliminarActionPerformed);
+            menuGestionar.add(menuItemEliminar);
+        } else {
+            // 
+        }
+    
+        if (activoRenombrar) {
+            menuItemRenombrar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
+            menuItemRenombrar.addActionListener(this::menuItemRenombrarActionPerformed);
+            menuGestionar.add(menuItemRenombrar);
+        } else {
+            // 
+        }
+        
+        if (activoSalir) {
+            menuItemSalir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, KeyEvent.CTRL_DOWN_MASK));
+            menuItemSalir.addActionListener(this::menuItemSalirActionPerformed);
+            menuGestionar.add(menuItemSalir);
+        } else {
+            // 
+        }
     }
 
     /**
@@ -279,6 +306,7 @@ public class VistaPirncipal extends javax.swing.JFrame {
                 }
             }
         }
+        activoCrear = false;
     }//GEN-LAST:event_menuItemCrearActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -316,7 +344,7 @@ public class VistaPirncipal extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Archivo eliminado: " + rutaCompleta);
             }
         }
-
+        activoEliminar = false;
     }//GEN-LAST:event_menuItemEliminarActionPerformed
 
     private void btnListarArchivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarArchivosActionPerformed
@@ -381,6 +409,7 @@ public class VistaPirncipal extends javax.swing.JFrame {
                 }
             }   
         }
+        activoRenombrar = false;
     }//GEN-LAST:event_menuItemRenombrarActionPerformed
 
     private void btnMostrarInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarInformacionActionPerformed
@@ -407,7 +436,8 @@ public class VistaPirncipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMostrarInformacionActionPerformed
 
     private void menuItemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSalirActionPerformed
-        
+        System.exit(0); 
+        //activoSalir = false;
     }//GEN-LAST:event_menuItemSalirActionPerformed
 
     private void actualizar(File fichero){
