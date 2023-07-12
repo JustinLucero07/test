@@ -32,7 +32,7 @@ public class VistaPirncipal extends javax.swing.JFrame {
     public VistaPirncipal() {
         initComponents();
         this.controlador = new Controlador();
-        if (activoCrear) {
+        /*i9f (activoCrear) {
             menuItemCrear.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
             menuItemCrear.addActionListener(this::menuItemCrearActionPerformed);
             menuGestionar.add(menuItemCrear);
@@ -61,7 +61,7 @@ public class VistaPirncipal extends javax.swing.JFrame {
             menuGestionar.add(menuItemSalir);
         } else {
             // 
-        }
+        }*/
     }
 
     /**
@@ -391,7 +391,7 @@ public class VistaPirncipal extends javax.swing.JFrame {
 
         DefaultMutableTreeNode nodoSeleccionado = (DefaultMutableTreeNode) jTree.getSelectionPath().getLastPathComponent();
         if (nodoSeleccionado != null) {
-            String nombreAnterior = nodoSeleccionado.toString();
+            String nombreAnterior = obtenerRutaCompletaDesdeNodo(nodoSeleccionado); 
 
             int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de renombrar '" + nombreAnterior + "'?", "Confirmar Renombrar", JOptionPane.YES_NO_OPTION);
 

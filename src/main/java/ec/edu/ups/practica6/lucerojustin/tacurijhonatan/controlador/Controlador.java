@@ -1,4 +1,4 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -12,7 +12,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 
 /**
- *
+ *S
  * @author Usuario
  */
 public class Controlador {
@@ -193,7 +193,7 @@ public class Controlador {
     
     public void renombrarArchivoODirectorio(String ruta, String nuevoNombre) {
         File archivoODirectorio = new File(ruta);
-        String nuevaRuta = archivoODirectorio.getParent() + File.separator + nuevoNombre;
+        String nuevaRuta = archivoODirectorio.getParent() + "\\" + nuevoNombre;
         File archivoODirectorioNuevo = new File(nuevaRuta);
         archivoODirectorio.renameTo(archivoODirectorioNuevo);
     }
